@@ -162,7 +162,7 @@ def uniqify(vs):
     for v in vs:
         seen = False
         for r in res:
-            if r == v:
+            if qualified_name(r) == qualified_name(v):
                 seen = True
                 break
         if not seen:
