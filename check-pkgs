@@ -904,11 +904,13 @@ def step_decide ():
             write_list('remind', remind_list)
             break
         elif opt == 's':
-            sels = selectfromlist(map(qualified_name, pkgs))
-            for i in sels:
-                add_reminder(qualified_name(pkgs[i]), remind_list)
+            l = list(sorted(map(qualified_name, pkgs)))
+            sels = selectfromlist(l)
+            sels = [l[i] for i in sels]
+            for pkg in sels:
+                add_reminder(pkg, remind_list)
             write_list('remind', remind_list)
-            pkgs = [pkg for i, pkg in enumerate(pkgs) if i not in sels]
+            pkgs = [pkg for pkg in pkgs if qualified_name(pkg) not in sels]
             continue
         elif opt in ('d', 'u'):
             do_purge(pkg)
